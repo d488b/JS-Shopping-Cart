@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<button type="button" data-item="cookbook" id="addItem">Add Item</button>
+
+<button type="button" id="deleteItem">Delete</button>
+<script>
+document.querySelector("button#addItem").addEventListener("click", addToCart);
+document.querySelector("button#deleteItem").addEventListener("click", removeFromCart);
+
+    function addToCart(eventObj){
+        var button = eventObj.target;
+        var item = button.getAttribute("data-item");
+        if(!localStorage.getItem("cart")){
+            localStorage.setItem("cart", JSON.stringify([item]));
+        } else {
+            var cart = JSON.parse(localStorage.getItem("cart"));
+            cart.push(item);
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    }
+
+    function removeFromCart(item){
+        var cart = JSON.parse(localStorage.getItem("cart"));
+        var itemIndex = cart.indexOf(item);
+        var removedItem = cart.splice(itemIndex, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+</script>
+</body>
+</html>
